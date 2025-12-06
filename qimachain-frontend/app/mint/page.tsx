@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -126,9 +125,9 @@ export default function MintPage() {
 
       setMintResult(result);
       setMintStatus("success");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Minting failed:", error);
-      setErrorMessage(error.message || "Failed to mint certificate");
+      setErrorMessage(error instanceof Error ? error.message : "Failed to mint certificate");
       setMintStatus("error");
     } finally {
       setIsMinting(false);
