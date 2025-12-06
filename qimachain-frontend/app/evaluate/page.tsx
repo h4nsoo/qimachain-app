@@ -30,6 +30,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { analyzeWatch } from "@/lib/api";
+import { WalletButton } from "@/components/WalletButton";
 
 interface UploadedFile {
   file: File;
@@ -129,27 +130,44 @@ export default function EvaluatePage() {
       const normalizedCondition =
         conditionMap[formData.condition] || formData.condition;
 
-      // Call the backend API
-      const result = await analyzeWatch({
+      // Store uploaded image previews for results page
+      const imagePreviews = files.map((f) => f.preview);
+      sessionStorage.setItem("uploadedImages", JSON.stringify(imagePreviews));
+
+      // Navigate to results page immediately - it will show loading state
+      router.push("/results");
+
+      // Call the backend API in the background
+      analyzeWatch({
         file: mainFile,
         papers_file: papersFile,
         condition: normalizedCondition,
         has_box: formData.hasBox ? 1 : 0,
         has_papers: formData.hasPapers ? 1 : 0,
-      });
-
-      // Store result in sessionStorage for the results page
-      sessionStorage.setItem("analysisResult", JSON.stringify(result));
-
-      // Navigate to analysis page with animation
-      router.push("/analysis");
+      })
+        .then((result) => {
+          // Store result in sessionStorage for the results page
+          sessionStorage.setItem("analysisResult", JSON.stringify(result));
+          // Trigger a storage event to notify the results page
+          window.dispatchEvent(new Event("storage"));
+        })
+        .catch((error) => {
+          console.error("Analysis failed:", error);
+          sessionStorage.setItem(
+            "analysisError",
+            error instanceof Error
+              ? error.message
+              : "Failed to analyze watch. Please try again."
+          );
+          window.dispatchEvent(new Event("storage"));
+        });
     } catch (error) {
-      console.error("Analysis failed:", error);
+      console.error("Analysis setup failed:", error);
       setErrors({
         required:
           error instanceof Error
             ? error.message
-            : "Failed to analyze watch. Please try again.",
+            : "Failed to start analysis. Please try again.",
       });
       setIsSubmitting(false);
     }
@@ -178,9 +196,7 @@ export default function EvaluatePage() {
                 Home
               </Link>
               <span className="text-white font-medium">Evaluate</span>
-              <Button variant="luxury" size="sm" className="text-xs px-4 py-2">
-                Connect Wallet
-              </Button>
+              <WalletButton />
             </div>
           </div>
         </div>

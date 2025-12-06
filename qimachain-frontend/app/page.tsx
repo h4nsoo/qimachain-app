@@ -11,6 +11,7 @@ import {
 import { Crown, Upload, Brain, Award, ArrowRight, Camera } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { WalletButton } from "@/components/WalletButton";
 
 export default function Home() {
   return (
@@ -35,9 +36,7 @@ export default function Home() {
               >
                 Evaluate
               </Link>
-              <Button variant="luxury" size="sm" className="text-xs px-4 py-2">
-                Connect Wallet
-              </Button>
+              <WalletButton />
             </div>
           </div>
         </div>

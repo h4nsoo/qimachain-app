@@ -22,31 +22,90 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import type { AnalysisResponse } from "@/lib/types";
+import { WalletButton } from "@/components/WalletButton";
 
 export default function ResultsPage() {
   const [result, setResult] = useState<AnalysisResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   useEffect(() => {
-    // Load analysis result from sessionStorage
-    const stored = sessionStorage.getItem("analysisResult");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setResult(parsed);
-      } catch (error) {
-        console.error("Failed to parse analysis result:", error);
+    // Function to check for results
+    const checkResults = () => {
+      const stored = sessionStorage.getItem("analysisResult");
+      const errorStored = sessionStorage.getItem("analysisError");
+      const imagesStored = sessionStorage.getItem("uploadedImages");
+
+      if (errorStored) {
+        setError(errorStored);
+        setLoading(false);
+        sessionStorage.removeItem("analysisError");
+        return;
       }
-    }
-    setLoading(false);
+
+      if (imagesStored) {
+        try {
+          const images = JSON.parse(imagesStored);
+          setUploadedImages(images);
+        } catch (error) {
+          console.error("Failed to parse uploaded images:", error);
+        }
+      }
+
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setResult(parsed);
+          setLoading(false);
+        } catch (error) {
+          console.error("Failed to parse analysis result:", error);
+          setError("Failed to load results");
+          setLoading(false);
+        }
+      }
+    };
+
+    // Check immediately on mount
+    checkResults();
+
+    // Listen for storage events (triggered when API completes)
+    const handleStorageChange = () => {
+      checkResults();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">Loading results...</p>
+          <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-6" />
+          <h2 className="text-2xl font-bold mb-2">Analyzing Your Watch...</h2>
+          <p className="text-gray-400">AI is processing your watch image</p>
+          <p className="text-gray-500 text-sm mt-2">
+            This may take a few moments
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <AlertTriangle className="w-16 h-16 text-red-400 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">Analysis Failed</h1>
+          <p className="text-gray-400 mb-6">{error}</p>
+          <Link href="/evaluate">
+            <Button variant="luxury">Try Again</Button>
+          </Link>
         </div>
       </div>
     );
@@ -98,9 +157,7 @@ export default function ResultsPage() {
               >
                 Evaluate
               </Link>
-              <Button variant="luxury" size="sm" className="text-xs px-4 py-2">
-                Connect Wallet
-              </Button>
+              <WalletButton />
             </div>
           </div>
         </div>
@@ -594,42 +651,61 @@ export default function ResultsPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="aspect-square bg-gray-700 rounded-lg overflow-hidden">
-                      <Image
-                        src="/api/placeholder/200/200"
-                        alt="Watch Front"
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="aspect-square bg-gray-700 rounded-lg overflow-hidden">
-                      <Image
-                        src="/api/placeholder/200/200"
-                        alt="Caseback"
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="aspect-square bg-gray-700 rounded-lg overflow-hidden">
-                      <Image
-                        src="/api/placeholder/200/200"
-                        alt="Wrist Shot"
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="aspect-square bg-gray-700 rounded-lg overflow-hidden">
-                      <Image
-                        src="/api/placeholder/200/200"
-                        alt="Papers"
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                    {uploadedImages.length > 0 ? (
+                      uploadedImages.slice(0, 4).map((imgSrc, index) => (
+                        <div
+                          key={index}
+                          className="aspect-square bg-gray-900 rounded-lg overflow-hidden"
+                        >
+                          <Image
+                            src={imgSrc}
+                            alt={`Uploaded ${index + 1}`}
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <>
+                        <div className="aspect-square bg-gray-900 rounded-lg overflow-hidden">
+                          <Image
+                            src="/watches/sample-front.png"
+                            alt="Watch Front"
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-contain p-2"
+                          />
+                        </div>
+                        <div className="aspect-square bg-gray-900 rounded-lg overflow-hidden">
+                          <Image
+                            src="/watches/sample-caseback.png"
+                            alt="Caseback"
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-contain p-2"
+                          />
+                        </div>
+                        <div className="aspect-square bg-gray-900 rounded-lg overflow-hidden">
+                          <Image
+                            src="/watches/sample-wrist.png"
+                            alt="Wrist Shot"
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-contain p-2"
+                          />
+                        </div>
+                        <div className="aspect-square bg-gray-900 rounded-lg overflow-hidden">
+                          <Image
+                            src="/watches/sample-papers.png"
+                            alt="Papers"
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-contain p-2"
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                 </CardContent>
               </Card>
