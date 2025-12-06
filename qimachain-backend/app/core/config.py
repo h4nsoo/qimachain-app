@@ -4,8 +4,8 @@ Configuration settings for QīmaChain Backend
 import os
 from pathlib import Path
 
-# Base directory
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Base directory (project root, not app/)
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # API Settings
 API_VERSION = "1.0.0"

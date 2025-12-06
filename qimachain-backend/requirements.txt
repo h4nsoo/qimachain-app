@@ -1,8 +1,8 @@
 requests
 bs4
 lxml
-torch 
-torchvision 
+torch
+torchvision
 pillow 
 numpy 
 pandas
@@ -13,3 +13,5 @@ scikit-learn
 joblib
 google-generativeai
 pytesseract
+web3
+python-dotenv

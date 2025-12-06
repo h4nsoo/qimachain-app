@@ -3,7 +3,7 @@ Fallback regex-based extractor for when LLM is blocked.
 """
 
 import re
-from models import WatchCertificateData
+from app.models.models import WatchCertificateData
 
 def extract_with_regex(ocr_text: str) -> WatchCertificateData:
     """

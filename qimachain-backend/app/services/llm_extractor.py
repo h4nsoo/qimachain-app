@@ -12,7 +12,7 @@ from typing import Optional, Dict, Any
 import google.generativeai as genai
 from pydantic import ValidationError
 
-from models import WatchCertificateData, OCRResult
+from app.models.models import WatchCertificateData, OCRResult
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

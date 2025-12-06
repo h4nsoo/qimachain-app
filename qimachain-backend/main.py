@@ -8,6 +8,7 @@ from app.core.config import (
     CORS_ORIGINS,
 )
 from app.api.routes.analyze import router as analyze_router
+from app.api.routes.mint import router as mint_router
 
 app = FastAPI(
     title=API_TITLE,
@@ -27,11 +28,16 @@ app.add_middleware(
 # All analyze endpoints live under /analyze
 app.include_router(analyze_router, prefix="/analyze")
 
+# All mint endpoints live under /mint
+app.include_router(mint_router, prefix="/mint")
+
 @app.get("/")
 async def root():
     return {
         "message": "QimaChain Watch Valuation API",
         "endpoints": {
-            "POST /analyze": "Upload watch image and optional condition/box/papers to get model + valuation."
+            "POST /analyze": "Upload watch image and optional condition/box/papers to get model + valuation.",
+            "POST /mint": "Mint NFT certificate for authenticated watch.",
+            "GET /mint/status": "Check blockchain minting service status.",
         },
     }

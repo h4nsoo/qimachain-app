@@ -9,7 +9,7 @@ from typing import Union, Optional
 from PIL import Image
 import numpy as np
 
-from models import OCRResult
+from app.models.models import OCRResult
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
