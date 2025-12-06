@@ -1,0 +1,26 @@
+listing_id,brand,model_name,reference_number,price,currency,source,condition,has_box,has_papers,listing_url
+1,Rolex,Rolex Submariner,116613,14900,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/rolex-116613lb-submariner-date-40mm-18k-yg-flat-blue-dial-oyster-bracelet-complete-set-2009--id39952957.htm?searchHash=de9d806d_reXti9&pos=1
+2,Rolex,Rolex Submariner,116613,15900,USD,chrono24,Used(good),no,yes,https://www.chrono24.com/rolex/submariner-40mm-blue-dial-watch-ref-116613lb--id43921023.htm?searchHash=de9d806d_8qc9sZ&pos=7
+3,Rolex,Rolex Submariner,116613,15140,USD,chrono24,Used(Very good),yes,no,https://www.chrono24.com/rolex/submariner-steel-yellow-gold-diamond-mens-watch-116613--id43916782.htm?searchHash=de9d806d_vaI5JD&pos=3
+4,Rolex,Rolex Submariner,116613,14250,USD,chrono24,Used(good),no,no,https://www.chrono24.com/rolex/submariner-date-116613lb-40mm-blue-ceramic-steel-gold-mens-watch-2011--id43553378.htm?searchHash=de9d806d_dFr0wX&pos=17
+5,Rolex,Rolex Submariner,116613,13439,USD,chrono24,Used(very good),no,no,https://www.chrono24.com/rolex/rolex-submariner-date-116613lb--id42169284.htm?searchHash=de9d806d_CyvVon&pos=20
+6,Rolex,Rolex Daytona,116509,44997,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/rolex-cosmograph-daytona--2020-full-set-white-gold-blue-dial-40mm-116509--id43763440.htm?searchHash=6a061b3c_b99q8i&pos=1
+7,Rolex,Rolex Daytona,116509,55282,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/rolex-daytona-116509-john-mayer--complete-set-excellent-condition--id41416866.htm
+8,Rolex,Rolex Daytona,116509,29995,USD,chrono24,Used(very good),yes,no,https://www.chrono24.com/rolex/daytona-diablo-116509-black-racing-dial-18k-white-gold-box-booklet-40mm--id43266794.htm?searchHash=6a061b3c_hJEYej&pos=5
+9,Rolex,Rolex Daytona,116509,41811,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/2025-rolex-cpo-papers-daytona-ghost-panda-silver-dial-chrono-116509-white-gold-watch--id43912022.htm?searchHash=6a061b3c_0UkU0F&pos=8
+10,Rolex,Rolex Daytona,116509,49080,USD,chrono24,Used(very good),yes,no,https://www.chrono24.com/rolex/daytona-white-gold-meteorite-dial-chronograph-mens-watch-116509--id43210664.htm?searchHash=6a061b3c_gS1VHh&pos=3
+11,Rolex,Rolex GMT-Master II,126710,22300,USD,chrono24,New,yes,yes,https://www.chrono24.com/rolex/rolex-2025-new-gmt-master-ii-bruce-wayne-jubilee-126710grnr--id43100030.htm
+12,Rolex,Rolex GMT-Master II,126710,16950,USD,chrono24,Used,yes,no,https://www.chrono24.com/rolex/gmt-master-ii-batgirl-stainless-steel-jubilee-126710blnr--id43351975.htm?searchHash=30454ba6_C5JJU9&pos=3
+13,Rolex,Rolex GMT-Master II,126710,20745,USD,chrono24,New,yes,yes,https://www.chrono24.com/rolex/rolex-gmt-master-ii--id42438120.htm?searchHash=30454ba6_tLXqHU&pos=10
+14,Rolex,Rolex GMT-Master II,126710,25140,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/gmt-master-ii-steel-blue-red-pepsi-bezel-mens-watch-126710-box-card--id43933627.htm?searchHash=30454ba6_krF6wu&pos=16
+15,Rolex,Rolex GMT-Master II,126710,18000,USD,chrono24,Used(very good),no,yes,https://www.chrono24.com/rolex/gmt-master-ii-batgirl-stainless-steel-black-dial-40mm-126710blnr--id42566401.htm?searchHash=30454ba6_rPDibC&pos=38
+16,Rolex,Rolex Datejust,126234,14450,USD,chrono24,New,yes,yes,https://www.chrono24.com/rolex/rolex-datejust-new-2025-september-126234-wimbledon-slate-roman-jubilee-steel--id43219786.htm
+17,Rolex,Rolex Datejust,126234,9995,USD,chrono24,Used(very good),yes,no,https://www.chrono24.com/rolex/rolex-datejust-36--id43669280.htm?searchHash=60a7e8ff_K0UemI&pos=3
+18,Rolex,Rolex Datejust,126234,13740,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/rolex-2023-datejust-36mm-126234-stainless-steel-jubilee-green-palm-motif-dial--id43761623.htm?searchHash=60a7e8ff_6SW3Ed&pos=10
+19,Rolex,Rolex Datejust,126234,12600,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/rolex-datejust-36--id43287166.htm?searchHash=60a7e8ff_o8TC7r&pos=11
+20,Rolex,Rolex Datejust,126234,11450,USD,chrono24,Used(very good),no,no,https://www.chrono24.com/rolex/rolex-datejust-36-126234-silver-dial-18k-white-gold-bezel--stainless-jubilee--bracelet-mint--id38837898.htm?searchHash=60a7e8ff_JDX4fY&pos=17
+21,Rolex,Rolex Sea-Dweller,126600,13512,USD,chrono24,Used(very good),yes,no,https://www.chrono24.com/rolex/papers-rolex-sea-dweller-50th-anniversary-black-red-43mm-mk2-126600-watch-box--id43930578.htm?searchHash=7d2bd499_7xaTvW&pos=2v
+22,Rolex,Rolex Sea-Dweller,126600,14950,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/2025-rolex-sea-dweller-red-letter-126600-43mm-black-dial-steel-box-paperssea-dweller--id43932394.htm?searchHash=7d2bd499_1RFLgK&pos=7
+23,Rolex,Rolex Sea-Dweller,126600,12999,USD,chrono24,Used(very good),no,no,https://www.chrono24.com/rolex/red-sea-dweller-126600-mens-watch--id39821152.htm?searchHash=7d2bd499_4kO6mo&pos=17
+24,Rolex,Rolex Sea-Dweller,126600,15900,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/126600-sea-dweller-ss-black-dial-2024--id43928647.htm?searchHash=7d2bd499_8Y9Op8&pos=14
+25,Rolex,Rolex Sea-Dweller,126600,12992,USD,chrono24,Used(very good),yes,yes,https://www.chrono24.com/rolex/2020-papers-rolex-sea-dweller-126600-black-mark-ii-stainless-43mm-mk2-watch-box--id38531888.htm?searchHash=7d2bd499_Z9IYFk&pos=19

@@ -1,0 +1,15 @@
+requests
+bs4
+lxml
+torch 
+torchvision 
+pillow 
+numpy 
+pandas
+fastapi
+uvicorn
+python-multipart
+scikit-learn
+joblib
+google-generativeai
+pytesseract
