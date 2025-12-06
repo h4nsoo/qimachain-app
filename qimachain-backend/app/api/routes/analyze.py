@@ -9,26 +9,29 @@ from fastapi import APIRouter, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 from PIL import Image
 from torchvision import models, transforms
+import joblib
 
-from valuation_engine import ValuationEngine  # valuation_engine.py in project root
-
-# OCR + LLM certificate pipeline
-from ocr_processor import WatchCertificateOCR
-from llm_extractor import WatchDataExtractor
-from models import WatchCertificateData, OCRResult
-
-import joblib  # for optional condition classifier
+from app.services.valuation_engine import ValuationEngine
+from app.services.ocr_processor import WatchCertificateOCR
+from app.services.llm_extractor import WatchDataExtractor
+from app.models.models import WatchCertificateData, OCRResult
+from app.core.config import (
+    MODEL_PROTOTYPES_PATH,
+    CONDITION_CLASSIFIER_PATH,
+    DEVICE,
+    IMAGE_SIZE,
+)
 
 router = APIRouter()
 
 # -------- CONFIG --------
 
-PROTOTYPES_JSON = "model_prototypes.json"
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+PROTOTYPES_JSON = str(MODEL_PROTOTYPES_PATH)
+device = torch.device(DEVICE if torch.cuda.is_available() else "cpu")
 
 # Must match build_embeddings.py
 transform = transforms.Compose([
-    transforms.Resize((224, 224)),
+    transforms.Resize(IMAGE_SIZE),
     transforms.ToTensor(),
     transforms.Normalize(
         mean=[0.485, 0.456, 0.406],
@@ -128,7 +131,7 @@ def load_condition_classifier():
     global condition_clf
     if condition_clf is None:
         try:
-            condition_clf = joblib.load("condition_classifier.joblib")
+            condition_clf = joblib.load(str(CONDITION_CLASSIFIER_PATH))
         except Exception:
             condition_clf = None
     return condition_clf

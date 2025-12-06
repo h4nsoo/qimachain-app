@@ -1,21 +1,24 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers.analyze import router as analyze_router
+
+from app.core.config import (
+    API_TITLE,
+    API_DESCRIPTION,
+    API_VERSION,
+    CORS_ORIGINS,
+)
+from app.api.routes.analyze import router as analyze_router
 
 app = FastAPI(
-    title="QimaChain Watch Valuation API",
-    description="Upload a watch image → recognize model → estimate valuation.",
-    version="1.0.0",
+    title=API_TITLE,
+    description=API_DESCRIPTION,
+    version=API_VERSION,
 )
 
 # Configure CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",  # Next.js dev server
-        "http://127.0.0.1:3000",
-        "http://localhost:3001",  # Alternative port
-    ],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

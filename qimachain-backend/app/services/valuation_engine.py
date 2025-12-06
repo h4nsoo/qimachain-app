@@ -1,13 +1,15 @@
 import pandas as pd
 import numpy as np
 import joblib
+from pathlib import Path
 
-SALES_CSV = "watch_sales_template.csv"
-PRICE_MODEL_PATH = "price_model.joblib"
+# Default paths - will be overridden by config
+SALES_CSV = Path(__file__).parent.parent.parent / "data" / "watch_sales_template.csv"
+PRICE_MODEL_PATH = Path(__file__).parent.parent.parent / "trained_models" / "price_model.joblib"
 
 
 class ValuationEngine:
-    def __init__(self, csv_path: str = SALES_CSV):
+    def __init__(self, csv_path: str | Path = SALES_CSV):
         df = pd.read_csv(csv_path)
 
         # Drop rows with missing or placeholder prices
