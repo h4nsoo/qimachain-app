@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  # FastAPI Backend Service
+  backend:
+    build:
+      context: ./qimachain-backend
+      dockerfile: Dockerfile
+    container_name: qimachain-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Mount source code for development (comment out for production)
+      - ./qimachain-backend:/app
+      # Exclude Python cache
+      - /app/__pycache__
+      # Persist model files
+      - ./qimachain-backend/model_prototypes.json:/app/model_prototypes.json
+      - ./qimachain-backend/condition_classifier.joblib:/app/condition_classifier.joblib
+      - ./qimachain-backend/price_model.joblib:/app/price_model.joblib
+      - ./qimachain-backend/watch_sales_template.csv:/app/watch_sales_template.csv
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+    networks:
+      - qimachain-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Next.js Frontend Service
+  frontend:
+    build:
+      context: ./qimachain-frontend
+      dockerfile: Dockerfile
+    container_name: qimachain-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+      - NODE_ENV=production
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - qimachain-network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  qimachain-network:
+    driver: bridge
+    name: qimachain-network
+
+volumes:
+  backend-data:
+    driver: local
